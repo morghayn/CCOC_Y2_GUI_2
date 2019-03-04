@@ -26,7 +26,7 @@ Partial Class Main
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
-        Me.MyGrid = New System.Windows.Forms.DataGridView()
+        Me.myGrid = New System.Windows.Forms.DataGridView()
         Me.LoadButton = New System.Windows.Forms.Button()
         Me.txtFname = New System.Windows.Forms.TextBox()
         Me.txtLname = New System.Windows.Forms.TextBox()
@@ -37,25 +37,24 @@ Partial Class Main
         Me.lblSecondName = New System.Windows.Forms.Label()
         Me.lblAddress = New System.Windows.Forms.Label()
         Me.lblAge = New System.Windows.Forms.Label()
-        Me.mybtn = New System.Windows.Forms.Button()
         Me.Newbut = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        CType(Me.MyGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.myGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'MyGrid
+        'myGrid
         '
-        Me.MyGrid.AllowUserToAddRows = False
-        Me.MyGrid.AllowUserToDeleteRows = False
-        Me.MyGrid.AllowUserToResizeColumns = False
-        Me.MyGrid.AllowUserToResizeRows = False
+        Me.myGrid.AllowUserToAddRows = False
+        Me.myGrid.AllowUserToDeleteRows = False
+        Me.myGrid.AllowUserToResizeColumns = False
+        Me.myGrid.AllowUserToResizeRows = False
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
-        Me.MyGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.MyGrid.BackgroundColor = System.Drawing.SystemColors.Window
-        Me.MyGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical
-        Me.MyGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable
-        Me.MyGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        Me.myGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.myGrid.BackgroundColor = System.Drawing.SystemColors.Window
+        Me.myGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical
+        Me.myGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable
+        Me.myGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -63,8 +62,8 @@ Partial Class Main
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.MyGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.MyGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.myGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.myGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -72,21 +71,21 @@ Partial Class Main
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.MyGrid.DefaultCellStyle = DataGridViewCellStyle3
-        Me.MyGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.MyGrid.EnableHeadersVisualStyles = False
-        Me.MyGrid.GridColor = System.Drawing.SystemColors.ActiveBorder
-        Me.MyGrid.Location = New System.Drawing.Point(29, 42)
-        Me.MyGrid.Margin = New System.Windows.Forms.Padding(0)
-        Me.MyGrid.MultiSelect = False
-        Me.MyGrid.Name = "MyGrid"
-        Me.MyGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        Me.MyGrid.RowHeadersVisible = False
-        Me.MyGrid.RowHeadersWidth = 20
-        Me.MyGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        Me.MyGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.MyGrid.Size = New System.Drawing.Size(931, 306)
-        Me.MyGrid.TabIndex = 0
+        Me.myGrid.DefaultCellStyle = DataGridViewCellStyle3
+        Me.myGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.myGrid.EnableHeadersVisualStyles = False
+        Me.myGrid.GridColor = System.Drawing.SystemColors.ActiveBorder
+        Me.myGrid.Location = New System.Drawing.Point(29, 42)
+        Me.myGrid.Margin = New System.Windows.Forms.Padding(0)
+        Me.myGrid.MultiSelect = False
+        Me.myGrid.Name = "myGrid"
+        Me.myGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        Me.myGrid.RowHeadersVisible = False
+        Me.myGrid.RowHeadersWidth = 20
+        Me.myGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.myGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.myGrid.Size = New System.Drawing.Size(931, 306)
+        Me.myGrid.TabIndex = 0
         '
         'LoadButton
         '
@@ -192,20 +191,6 @@ Partial Class Main
         Me.lblAge.TabIndex = 10
         Me.lblAge.Text = "Age"
         '
-        'mybtn
-        '
-        Me.mybtn.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.mybtn.FlatAppearance.BorderSize = 3
-        Me.mybtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.mybtn.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.mybtn.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.mybtn.Location = New System.Drawing.Point(442, 560)
-        Me.mybtn.Name = "mybtn"
-        Me.mybtn.Size = New System.Drawing.Size(285, 67)
-        Me.mybtn.TabIndex = 11
-        Me.mybtn.Text = "ReadCell"
-        Me.mybtn.UseVisualStyleBackColor = False
-        '
         'Newbut
         '
         Me.Newbut.BackColor = System.Drawing.SystemColors.ActiveCaptionText
@@ -237,7 +222,6 @@ Partial Class Main
         Me.ClientSize = New System.Drawing.Size(1003, 643)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Newbut)
-        Me.Controls.Add(Me.mybtn)
         Me.Controls.Add(Me.lblAge)
         Me.Controls.Add(Me.lblAddress)
         Me.Controls.Add(Me.lblSecondName)
@@ -248,19 +232,19 @@ Partial Class Main
         Me.Controls.Add(Me.txtLname)
         Me.Controls.Add(Me.txtFname)
         Me.Controls.Add(Me.LoadButton)
-        Me.Controls.Add(Me.MyGrid)
+        Me.Controls.Add(Me.myGrid)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Main"
         Me.Opacity = 0.97R
         Me.Text = "My Project"
-        CType(Me.MyGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.myGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents MyGrid As DataGridView
+    Friend WithEvents myGrid As DataGridView
     Friend WithEvents LoadButton As Button
     Friend WithEvents txtFname As TextBox
     Friend WithEvents txtLname As TextBox
@@ -271,7 +255,6 @@ Partial Class Main
     Friend WithEvents lblSecondName As Label
     Friend WithEvents lblAddress As Label
     Friend WithEvents lblAge As Label
-    Friend WithEvents mybtn As Button
     Friend WithEvents Newbut As Button
     Friend WithEvents TextBox1 As TextBox
 End Class

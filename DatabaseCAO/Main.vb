@@ -1,152 +1,108 @@
 ﻿Imports System.Data.OleDb
 
-
-' how to make vb.net scalable window https://www.techrepublic.com/article/manage-winform-controls-using-the-anchor-and-dock-properties/
-
+' Github // Successfully hooked up and synced on my laptop && PC
 
 Public Class Main
 
-    Dim ColumnCount As New Int16
-    Dim doColumn As New Int16
-    Dim DAdapter As New OleDbDataAdapter
-    Dim DSet As DataSet = New DataSet
-    Dim DConnect As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\..\Resources\CAO.accdb")
+    Dim rowCounter As New Int16
+    Dim dAdapter As New OleDbDataAdapter
+    Dim dSet As DataSet = New DataSet
+    Dim dConnect As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\..\Resources\CAO.accdb")
     '
-    ' -> Instantiating my DataAdapter and DataSet
+    ' -- Note: You need Microsoft Access Engine 2010 to use OleDBCommand
+    ' -> Instantiating my data adapter and data set
 
 
     Private Sub MyProject(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            DConnect.Open()
+            dConnect.Open()
         Catch ex As Exception
-            MsgBox("Error. No connection.")
+            MsgBox("Error. Couldn't connect to Access database.")
         End Try
-        doColumn = 0
+        FillGrid()
+        AddColumn()
     End Sub
     '
-    ' -> Opening my Database Connection ( > With a Try/Catch < )
+    ' -> Opening my database connection (with try/catch)
 
 
-    Private Sub FillTable()
-        Dim tabname As String
-        'tabname = "5M0536 Module Results"
-        'github test
-        DSet.Clear()
-        DAdapter.SelectCommand = New OleDbCommand("Select * From [5M0536 Module Results]", DConnect)
-        DAdapter.Fill(DSet, "Fill-People")
-        MyGrid.DataSource = DSet.Tables("Fill-People")
-        '
-        ColumnCount = DSet.Tables("Fill-People").Rows.Count
-        ' -> Getting value for count
-
-        If doColumn = 0 Then AddColumn()
-        doColumn += 1
+    Private Sub FillGrid()
+        dSet.Clear()
+        dAdapter.SelectCommand = New OleDbCommand("Select * From [5M0536 Module Results]", dConnect)
+        dAdapter.Fill(dSet, "Results")
+        myGrid.DataSource = dSet.Tables("Results")
     End Sub
     '
-    ' -> Load Values into MyGrid
+    ' -> Filling my data adapter with imported data
+    ' -> Setting myGrid with my data imported
+
 
     Private Sub AddColumn()
-        Dim col As New DataGridViewTextBoxColumn
-        col.DataPropertyName = "colTotalPoints"
-        col.HeaderText = "Total"
-        col.Name = "TotalPoints"
-        MyGrid.Columns.Add(col)
+        myGrid.Columns.Add("TotalPoints", "Total")
+        myGrid.AutoResizeColumns()
+        rowCounter = dSet.Tables("Results").Rows.Count
 
-
-
-        'MyGrid.Rows(0).Cells(5).Value = 54
-        '
-        ' -> Adding value successfully
-
-        ' Dim x As Integer
-        ' x = MyGrid.Rows(yourRowIndex).Cells(yourColumnIndex).Value
-
+        'Set Value of first cell in total column
+        myGrid.Rows(0).Cells(12).Value = 54
     End Sub
+    '
+    ' -> Adding new total column and adding values to new column
+    ' -> Resizing all columns and updating row-counter
 
 
     Private Sub LoadInsertRecord(sender As Object, e As EventArgs) Handles InsertButton.Click, LoadButton.Click
         If CType(sender, Button).Name.ToString = "InsertButton" Then
-            ColumnCount += 1
-            DAdapter.InsertCommand = New OleDbCommand("INSERT INTO People (PPSN, FirstName, Surname, 5N2928, 5N2929, 5N0548, 5N2434, 5N2927, 5N18396, 5N0783, 5N0690, 5N1356) Values ('" & ColumnCount & "', '" & txtFname.Text & "', '" & txtLname.Text & "', '" & txtAddress.Text & "', '" & txtAge.Text & "')", DConnect)
-            DAdapter.InsertCommand.ExecuteNonQuery()
+            rowCounter += 1
+            dAdapter.InsertCommand = New OleDbCommand("INSERT INTO People (PPSN, FirstName, Surname, 5N2928, 5N2929, 5N0548, 5N2434, 5N2927, 5N18396, 5N0783, 5N0690, 5N1356) Values ('" & rowCounter & "', '" & txtFname.Text & "', '" & txtLname.Text & "', '" & txtAddress.Text & "', '" & txtAge.Text & "')", dConnect)
+            dAdapter.InsertCommand.ExecuteNonQuery()
         End If
-        FillTable()
-        MyGrid.AutoResizeColumns()
+        FillGrid()
     End Sub
     '
     ' -> Load / Insert New Record
 
-    Private Sub ReadACell(sender As Object, e As EventArgs) Handles mybtn.Click
-        ' Dim x As Integer
-        ' MyGrid.Columns.Add("Column Name", "Column Heading")
-        ' x = MyGrid.Rows(yourRowIndex).Cells(yourColumnIndex).Value
-        ' x = MyGrid.Rows(1).Cells(0).Value
-        'MsgBox(x)
-
-
-
-        'MyGrid.Rows(0).Cells(5).Value = 54
-        '
-        ' - > Also adding cell successfully
-    End Sub
-    '
-    ' -> How to read a single cell in DataGridView
 
     Private Sub MiscClick(sender As Object, e As EventArgs) Handles Newbut.Click
         Dim x As String
         Dim y As Integer
-        y = MyGrid.CurrentRow.Index
+        y = myGrid.CurrentRow.Index
         x = ""
-        For Each dgvRow In MyGrid.SelectedRows
+        For Each dgvRow In myGrid.SelectedRows
             x = dgvRow.Cells("PPSN").Value.ToString
         Next
         MsgBox(y)
-
-
     End Sub
 
-    Private Sub MyGrid_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles MyGrid.CellContentClick
 
-    End Sub
+    '   Temporary links commented leading to resources for code used in my assignment
     '
-    '   https://social.msdn.microsoft.com/Forums/windows/en-US/7ce81f9a-7047-444d-b75b-ef548b2ec635/datagridview-select-rows-and-retrieve-the-values-of-the-cells?forum=winformsdatacontrols
-    '
-    ' -> Returns value from NameID of the selected row
-    ' -> Gets cell index
-    ' -> https://www.daniweb.com/programming/software-development/threads/94061/get-the-selected-row-in-datagridview
-
-
-
-    'https://social.msdn.microsoft.com/Forums/vstudio/en-US/0457f101-3caa-46a8-ba9e-dbd9e8bcc6a7/how-to-update-only-one-datagridview-column-from-database?forum=vbgeneral
     'write to column?
+    'https://social.msdn.microsoft.com/Forums/vstudio/en-US/0457f101-3caa-46a8-ba9e-dbd9e8bcc6a7/how-to-update-only-one-datagridview-column-from-database?forum=vbgeneral
 
-    'https://www.daniweb.com/programming/software-development/threads/369439/add-values-in-a-column-of-a-datagridview-in-vb-net
     'adding via SQL
-
+    'https://www.daniweb.com/programming/software-development/threads/369439/add-values-in-a-column-of-a-datagridview-in-vb-net
 
     'creating column
     'https://stackoverflow.com/questions/8730765/vb-net-adding-columns-to-datagridviews-in-a-list
 
-
     'summin columns
     'https://stackoverflow.com/questions/16452036/using-vb-to-retrieve-the-sum-of-a-column-of-salaries-from-an-access-database
-
-
 
     'Total tutorial
     'https://stackoverflow.com/questions/20594071/how-can-you-add-a-column-in-datagridview-using-calculations-with-database-values
 
-
     'video tutorial
     'https://www.youtube.com/watch?v=7RqAmgv0J1I
-
-
 
     'how I can show the sum of in a datagridview column?
     'https://stackoverflow.com/questions/3779729/how-i-can-show-the-sum-of-in-a-datagridview-column
 
+    ' how to make vb.net scalable window 
+    ' https://www.techrepublic.com/article/manage-winform-controls-using-the-anchor-And-dock-properties/
 
-
-    'Selecting DataGridView
+    ' -> Returns value from NameID of the selected row
+    ' -> Gets cell index
+    ' ->   https://social.msdn.microsoft.com/Forums/windows/en-US/7ce81f9a-7047-444d-b75b-ef548b2ec635/datagridview-select-rows-and-retrieve-the-values-of-the-cells?forum=winformsdatacontrols
+    ' -> https://www.daniweb.com/programming/software-development/threads/94061/get-the-selected-row-in-datagridview
 
 End Class
