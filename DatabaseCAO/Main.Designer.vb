@@ -28,17 +28,21 @@ Partial Class Main
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.myGrid = New System.Windows.Forms.DataGridView()
         Me.LoadButton = New System.Windows.Forms.Button()
-        Me.txtFname = New System.Windows.Forms.TextBox()
-        Me.txtLname = New System.Windows.Forms.TextBox()
-        Me.txtAddress = New System.Windows.Forms.TextBox()
-        Me.txtAge = New System.Windows.Forms.TextBox()
         Me.InsertButton = New System.Windows.Forms.Button()
-        Me.lblFirstName = New System.Windows.Forms.Label()
-        Me.lblSecondName = New System.Windows.Forms.Label()
-        Me.lblAddress = New System.Windows.Forms.Label()
-        Me.lblAge = New System.Windows.Forms.Label()
+        Me.lblPPSN = New System.Windows.Forms.Label()
         Me.Newbut = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.lbl5N0783 = New System.Windows.Forms.Label()
+        Me.lbl5N0690 = New System.Windows.Forms.Label()
+        Me.lbl5N1356 = New System.Windows.Forms.Label()
+        Me.lbl5N2434 = New System.Windows.Forms.Label()
+        Me.lbl5N2927 = New System.Windows.Forms.Label()
+        Me.lbl5N18396 = New System.Windows.Forms.Label()
+        Me.lbl5N0548 = New System.Windows.Forms.Label()
+        Me.lbl5N2929 = New System.Windows.Forms.Label()
+        Me.lbl5N2928 = New System.Windows.Forms.Label()
+        Me.lblSurname = New System.Windows.Forms.Label()
+        Me.lblForename = New System.Windows.Forms.Label()
         CType(Me.myGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -57,16 +61,17 @@ Partial Class Main
         Me.myGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.myGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.myGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.myGrid.Cursor = System.Windows.Forms.Cursors.Hand
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Calibri", 11.25!)
         DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -75,7 +80,7 @@ Partial Class Main
         Me.myGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.myGrid.EnableHeadersVisualStyles = False
         Me.myGrid.GridColor = System.Drawing.SystemColors.ActiveBorder
-        Me.myGrid.Location = New System.Drawing.Point(29, 42)
+        Me.myGrid.Location = New System.Drawing.Point(6, 7)
         Me.myGrid.Margin = New System.Windows.Forms.Padding(0)
         Me.myGrid.MultiSelect = False
         Me.myGrid.Name = "myGrid"
@@ -84,8 +89,9 @@ Partial Class Main
         Me.myGrid.RowHeadersWidth = 20
         Me.myGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.myGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.myGrid.Size = New System.Drawing.Size(931, 306)
+        Me.myGrid.Size = New System.Drawing.Size(847, 313)
         Me.myGrid.TabIndex = 0
+        Me.myGrid.TabStop = False
         '
         'LoadButton
         '
@@ -94,44 +100,12 @@ Partial Class Main
         Me.LoadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.LoadButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LoadButton.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.LoadButton.Location = New System.Drawing.Point(776, 560)
+        Me.LoadButton.Location = New System.Drawing.Point(604, 483)
         Me.LoadButton.Name = "LoadButton"
         Me.LoadButton.Size = New System.Drawing.Size(174, 67)
         Me.LoadButton.TabIndex = 1
         Me.LoadButton.Text = "LOAD"
         Me.LoadButton.UseVisualStyleBackColor = False
-        '
-        'txtFname
-        '
-        Me.txtFname.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFname.Location = New System.Drawing.Point(308, 454)
-        Me.txtFname.Name = "txtFname"
-        Me.txtFname.Size = New System.Drawing.Size(196, 29)
-        Me.txtFname.TabIndex = 2
-        '
-        'txtLname
-        '
-        Me.txtLname.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLname.Location = New System.Drawing.Point(684, 456)
-        Me.txtLname.Name = "txtLname"
-        Me.txtLname.Size = New System.Drawing.Size(196, 29)
-        Me.txtLname.TabIndex = 3
-        '
-        'txtAddress
-        '
-        Me.txtAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAddress.Location = New System.Drawing.Point(341, 501)
-        Me.txtAddress.Name = "txtAddress"
-        Me.txtAddress.Size = New System.Drawing.Size(196, 29)
-        Me.txtAddress.TabIndex = 4
-        '
-        'txtAge
-        '
-        Me.txtAge.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAge.Location = New System.Drawing.Point(602, 505)
-        Me.txtAge.Name = "txtAge"
-        Me.txtAge.Size = New System.Drawing.Size(196, 29)
-        Me.txtAge.TabIndex = 5
         '
         'InsertButton
         '
@@ -140,56 +114,23 @@ Partial Class Main
         Me.InsertButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.InsertButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.InsertButton.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.InsertButton.Location = New System.Drawing.Point(233, 560)
+        Me.InsertButton.Location = New System.Drawing.Point(352, 483)
         Me.InsertButton.Name = "InsertButton"
         Me.InsertButton.Size = New System.Drawing.Size(149, 67)
         Me.InsertButton.TabIndex = 6
         Me.InsertButton.Text = "ADD"
         Me.InsertButton.UseVisualStyleBackColor = False
         '
-        'lblFirstName
+        'lblPPSN
         '
-        Me.lblFirstName.AutoSize = True
-        Me.lblFirstName.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFirstName.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.lblFirstName.Location = New System.Drawing.Point(176, 458)
-        Me.lblFirstName.Name = "lblFirstName"
-        Me.lblFirstName.Size = New System.Drawing.Size(126, 25)
-        Me.lblFirstName.TabIndex = 7
-        Me.lblFirstName.Text = "First Name"
-        '
-        'lblSecondName
-        '
-        Me.lblSecondName.AutoSize = True
-        Me.lblSecondName.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSecondName.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.lblSecondName.Location = New System.Drawing.Point(520, 458)
-        Me.lblSecondName.Name = "lblSecondName"
-        Me.lblSecondName.Size = New System.Drawing.Size(158, 25)
-        Me.lblSecondName.TabIndex = 8
-        Me.lblSecondName.Text = "Second Name"
-        '
-        'lblAddress
-        '
-        Me.lblAddress.AutoSize = True
-        Me.lblAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAddress.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.lblAddress.Location = New System.Drawing.Point(228, 501)
-        Me.lblAddress.Name = "lblAddress"
-        Me.lblAddress.Size = New System.Drawing.Size(98, 25)
-        Me.lblAddress.TabIndex = 9
-        Me.lblAddress.Text = "Address"
-        '
-        'lblAge
-        '
-        Me.lblAge.AutoSize = True
-        Me.lblAge.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAge.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.lblAge.Location = New System.Drawing.Point(543, 505)
-        Me.lblAge.Name = "lblAge"
-        Me.lblAge.Size = New System.Drawing.Size(53, 25)
-        Me.lblAge.TabIndex = 10
-        Me.lblAge.Text = "Age"
+        Me.lblPPSN.AutoSize = True
+        Me.lblPPSN.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPPSN.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lblPPSN.Location = New System.Drawing.Point(47, 348)
+        Me.lblPPSN.Name = "lblPPSN"
+        Me.lblPPSN.Size = New System.Drawing.Size(73, 25)
+        Me.lblPPSN.TabIndex = 7
+        Me.lblPPSN.Text = "PPSN"
         '
         'Newbut
         '
@@ -198,7 +139,7 @@ Partial Class Main
         Me.Newbut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Newbut.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Newbut.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Newbut.Location = New System.Drawing.Point(29, 560)
+        Me.Newbut.Location = New System.Drawing.Point(39, 483)
         Me.Newbut.Name = "Newbut"
         Me.Newbut.Size = New System.Drawing.Size(150, 67)
         Me.Newbut.TabIndex = 12
@@ -208,10 +149,131 @@ Partial Class Main
         'TextBox1
         '
         Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(116, 367)
+        Me.TextBox1.Location = New System.Drawing.Point(126, 346)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(74, 29)
         Me.TextBox1.TabIndex = 13
+        '
+        'lbl5N0783
+        '
+        Me.lbl5N0783.AutoSize = True
+        Me.lbl5N0783.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl5N0783.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lbl5N0783.Location = New System.Drawing.Point(674, 346)
+        Me.lbl5N0783.Name = "lbl5N0783"
+        Me.lbl5N0783.Size = New System.Drawing.Size(93, 25)
+        Me.lbl5N0783.TabIndex = 14
+        Me.lbl5N0783.Text = "5N0783"
+        '
+        'lbl5N0690
+        '
+        Me.lbl5N0690.AutoSize = True
+        Me.lbl5N0690.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl5N0690.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lbl5N0690.Location = New System.Drawing.Point(674, 390)
+        Me.lbl5N0690.Name = "lbl5N0690"
+        Me.lbl5N0690.Size = New System.Drawing.Size(93, 25)
+        Me.lbl5N0690.TabIndex = 15
+        Me.lbl5N0690.Text = "5N0690"
+        '
+        'lbl5N1356
+        '
+        Me.lbl5N1356.AutoSize = True
+        Me.lbl5N1356.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl5N1356.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lbl5N1356.Location = New System.Drawing.Point(674, 430)
+        Me.lbl5N1356.Name = "lbl5N1356"
+        Me.lbl5N1356.Size = New System.Drawing.Size(93, 25)
+        Me.lbl5N1356.TabIndex = 16
+        Me.lbl5N1356.Text = "5N1356"
+        '
+        'lbl5N2434
+        '
+        Me.lbl5N2434.AutoSize = True
+        Me.lbl5N2434.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl5N2434.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lbl5N2434.Location = New System.Drawing.Point(481, 346)
+        Me.lbl5N2434.Name = "lbl5N2434"
+        Me.lbl5N2434.Size = New System.Drawing.Size(93, 25)
+        Me.lbl5N2434.TabIndex = 17
+        Me.lbl5N2434.Text = "5N2434"
+        '
+        'lbl5N2927
+        '
+        Me.lbl5N2927.AutoSize = True
+        Me.lbl5N2927.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl5N2927.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lbl5N2927.Location = New System.Drawing.Point(481, 390)
+        Me.lbl5N2927.Name = "lbl5N2927"
+        Me.lbl5N2927.Size = New System.Drawing.Size(93, 25)
+        Me.lbl5N2927.TabIndex = 18
+        Me.lbl5N2927.Text = "5N2927"
+        '
+        'lbl5N18396
+        '
+        Me.lbl5N18396.AutoSize = True
+        Me.lbl5N18396.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl5N18396.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lbl5N18396.Location = New System.Drawing.Point(481, 430)
+        Me.lbl5N18396.Name = "lbl5N18396"
+        Me.lbl5N18396.Size = New System.Drawing.Size(106, 25)
+        Me.lbl5N18396.TabIndex = 19
+        Me.lbl5N18396.Text = "5N18396"
+        '
+        'lbl5N0548
+        '
+        Me.lbl5N0548.AutoSize = True
+        Me.lbl5N0548.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl5N0548.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lbl5N0548.Location = New System.Drawing.Point(295, 430)
+        Me.lbl5N0548.Name = "lbl5N0548"
+        Me.lbl5N0548.Size = New System.Drawing.Size(93, 25)
+        Me.lbl5N0548.TabIndex = 20
+        Me.lbl5N0548.Text = "5N0548"
+        '
+        'lbl5N2929
+        '
+        Me.lbl5N2929.AutoSize = True
+        Me.lbl5N2929.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl5N2929.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lbl5N2929.Location = New System.Drawing.Point(295, 390)
+        Me.lbl5N2929.Name = "lbl5N2929"
+        Me.lbl5N2929.Size = New System.Drawing.Size(93, 25)
+        Me.lbl5N2929.TabIndex = 21
+        Me.lbl5N2929.Text = "5N2929"
+        '
+        'lbl5N2928
+        '
+        Me.lbl5N2928.AutoSize = True
+        Me.lbl5N2928.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl5N2928.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lbl5N2928.Location = New System.Drawing.Point(295, 348)
+        Me.lbl5N2928.Name = "lbl5N2928"
+        Me.lbl5N2928.Size = New System.Drawing.Size(93, 25)
+        Me.lbl5N2928.TabIndex = 22
+        Me.lbl5N2928.Text = "5N2928"
+        '
+        'lblSurname
+        '
+        Me.lblSurname.AutoSize = True
+        Me.lblSurname.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSurname.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lblSurname.Location = New System.Drawing.Point(47, 430)
+        Me.lblSurname.Name = "lblSurname"
+        Me.lblSurname.Size = New System.Drawing.Size(105, 25)
+        Me.lblSurname.TabIndex = 23
+        Me.lblSurname.Text = "Surname"
+        '
+        'lblForename
+        '
+        Me.lblForename.AutoSize = True
+        Me.lblForename.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblForename.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lblForename.Location = New System.Drawing.Point(47, 390)
+        Me.lblForename.Name = "lblForename"
+        Me.lblForename.Size = New System.Drawing.Size(117, 25)
+        Me.lblForename.TabIndex = 24
+        Me.lblForename.Text = "Forename"
         '
         'Main
         '
@@ -219,18 +281,22 @@ Partial Class Main
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.Color.RoyalBlue
-        Me.ClientSize = New System.Drawing.Size(1003, 643)
+        Me.ClientSize = New System.Drawing.Size(883, 578)
+        Me.Controls.Add(Me.lblForename)
+        Me.Controls.Add(Me.lblSurname)
+        Me.Controls.Add(Me.lbl5N2928)
+        Me.Controls.Add(Me.lbl5N2929)
+        Me.Controls.Add(Me.lbl5N0548)
+        Me.Controls.Add(Me.lbl5N18396)
+        Me.Controls.Add(Me.lbl5N2927)
+        Me.Controls.Add(Me.lbl5N2434)
+        Me.Controls.Add(Me.lbl5N1356)
+        Me.Controls.Add(Me.lbl5N0690)
+        Me.Controls.Add(Me.lbl5N0783)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Newbut)
-        Me.Controls.Add(Me.lblAge)
-        Me.Controls.Add(Me.lblAddress)
-        Me.Controls.Add(Me.lblSecondName)
-        Me.Controls.Add(Me.lblFirstName)
+        Me.Controls.Add(Me.lblPPSN)
         Me.Controls.Add(Me.InsertButton)
-        Me.Controls.Add(Me.txtAge)
-        Me.Controls.Add(Me.txtAddress)
-        Me.Controls.Add(Me.txtLname)
-        Me.Controls.Add(Me.txtFname)
         Me.Controls.Add(Me.LoadButton)
         Me.Controls.Add(Me.myGrid)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
@@ -246,15 +312,19 @@ Partial Class Main
 
     Friend WithEvents myGrid As DataGridView
     Friend WithEvents LoadButton As Button
-    Friend WithEvents txtFname As TextBox
-    Friend WithEvents txtLname As TextBox
-    Friend WithEvents txtAddress As TextBox
-    Friend WithEvents txtAge As TextBox
     Friend WithEvents InsertButton As Button
-    Friend WithEvents lblFirstName As Label
-    Friend WithEvents lblSecondName As Label
-    Friend WithEvents lblAddress As Label
-    Friend WithEvents lblAge As Label
+    Friend WithEvents lblPPSN As Label
     Friend WithEvents Newbut As Button
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents lbl5N0783 As Label
+    Friend WithEvents lbl5N0690 As Label
+    Friend WithEvents lbl5N1356 As Label
+    Friend WithEvents lbl5N2434 As Label
+    Friend WithEvents lbl5N2927 As Label
+    Friend WithEvents lbl5N18396 As Label
+    Friend WithEvents lbl5N0548 As Label
+    Friend WithEvents lbl5N2929 As Label
+    Friend WithEvents lbl5N2928 As Label
+    Friend WithEvents lblSurname As Label
+    Friend WithEvents lblForename As Label
 End Class

@@ -1,14 +1,8 @@
 ﻿Imports System.Data.OleDb
 
-' Github // Successfully hooked up and synced on my laptop && PC
-
 Public Class Main
-
-    Dim rowCounter As New Int16
-    Dim dAdapter As New OleDbDataAdapter
-    Dim dSet As DataSet = New DataSet
-    Dim dConnect As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\..\Resources\CAO.accdb")
-    '
+    Private rowCounter As New Int16, dAdapter As New OleDbDataAdapter, dSet As DataSet = New DataSet
+    Private dConnect As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\..\Resources\CAO.accdb")
     ' -- Note: You need Microsoft Access Engine 2010 to use OleDBCommand
     ' -> Instantiating my data adapter and data set
 
@@ -20,7 +14,7 @@ Public Class Main
             MsgBox("Error. Couldn't connect to Access database.")
         End Try
         FillGrid()
-        AddColumn()
+        CreateTotalsColumn()
     End Sub
     '
     ' -> Opening my database connection (with try/catch)
@@ -37,14 +31,32 @@ Public Class Main
     ' -> Setting myGrid with my data imported
 
 
-    Private Sub AddColumn()
-        myGrid.Columns.Add("TotalPoints", "Total")
-        myGrid.AutoResizeColumns()
-        rowCounter = dSet.Tables("Results").Rows.Count
+    'creating column
+    'https://stackoverflow.com/questions/8730765/vb-net-adding-columns-to-datagridviews-in-a-list
+    Private Sub CreateTotalsColumn()
+        myGrid.Columns.Add("TotalPoints", "CAO Points")
+        For i = 0 To (myGrid.Columns.Count - 1)
+            myGrid.Columns(i).SortMode = DataGridViewColumnSortMode.NotSortable
+        Next
 
-        'Set Value of first cell in total column
-        myGrid.Rows(0).Cells(12).Value = 54
+        rowCounter = dSet.Tables("Results").Rows.Count
+        myGrid.AutoResizeColumns()
+
+        Dim grade As New Integer, points As New Double
+        For row As Integer = 0 To rowCounter - 1
+            points = 0
+            For col As Integer = 3 To 11
+                grade = myGrid.Rows(row).Cells(col).Value
+                points += ConvertGrade(grade)
+            Next
+            myGrid.Rows(row).Cells(12).Value = points
+        Next
     End Sub
+    Public Function ConvertGrade(x As Integer) As Double
+        Return If(x >= 80, 38.75,
+               If(x >= 65 And x < 80, 32.5,
+               If(x >= 50 And x < 65, 16.35, 0)))
+    End Function
     '
     ' -> Adding new total column and adding values to new column
     ' -> Resizing all columns and updating row-counter
@@ -53,7 +65,7 @@ Public Class Main
     Private Sub LoadInsertRecord(sender As Object, e As EventArgs) Handles InsertButton.Click, LoadButton.Click
         If CType(sender, Button).Name.ToString = "InsertButton" Then
             rowCounter += 1
-            dAdapter.InsertCommand = New OleDbCommand("INSERT INTO People (PPSN, FirstName, Surname, 5N2928, 5N2929, 5N0548, 5N2434, 5N2927, 5N18396, 5N0783, 5N0690, 5N1356) Values ('" & rowCounter & "', '" & txtFname.Text & "', '" & txtLname.Text & "', '" & txtAddress.Text & "', '" & txtAge.Text & "')", dConnect)
+            dAdapter.InsertCommand = New OleDbCommand("INSERT INTO People (PPSN, FirstName, Surname, 5N2928, 5N2929, 5N0548, 5N2434, 5N2927, 5N18396, 5N0783, 5N0690, 5N1356) Values ('" & rowCounter & "')", dConnect) ' & "', '" & txtFname.Text & "', '" & txtLname.Text & "', '" & txtAddress.Text & "', '" & txtAge.Text & "')", dConnect)
             dAdapter.InsertCommand.ExecuteNonQuery()
         End If
         FillGrid()
@@ -75,22 +87,6 @@ Public Class Main
 
 
     '   Temporary links commented leading to resources for code used in my assignment
-    '
-    'write to column?
-    'https://social.msdn.microsoft.com/Forums/vstudio/en-US/0457f101-3caa-46a8-ba9e-dbd9e8bcc6a7/how-to-update-only-one-datagridview-column-from-database?forum=vbgeneral
-
-    'adding via SQL
-    'https://www.daniweb.com/programming/software-development/threads/369439/add-values-in-a-column-of-a-datagridview-in-vb-net
-
-    'creating column
-    'https://stackoverflow.com/questions/8730765/vb-net-adding-columns-to-datagridviews-in-a-list
-
-    'summin columns
-    'https://stackoverflow.com/questions/16452036/using-vb-to-retrieve-the-sum-of-a-column-of-salaries-from-an-access-database
-
-    'Total tutorial
-    'https://stackoverflow.com/questions/20594071/how-can-you-add-a-column-in-datagridview-using-calculations-with-database-values
-
     'video tutorial
     'https://www.youtube.com/watch?v=7RqAmgv0J1I
 
