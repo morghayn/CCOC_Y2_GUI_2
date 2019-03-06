@@ -15,6 +15,10 @@ Public Class Main
         End Try
         FillGrid()
         CreateTotalsColumn()
+
+        For i = 1 To dSet.Tables("Results").Rows.Count - 1
+            cmbProductNumbers.Items.Add(myGrid.Rows(i).Cells(0).Value)
+        Next
     End Sub
     '
     ' -> Opening my database connection (with try/catch)
@@ -68,33 +72,51 @@ Public Class Main
     End Sub
 
 
-    Private Sub InsertLoad(sender As Object, e As EventArgs) Handles btnInsert.Click, btnLoad.Click, btnDelete.Click
+    Private Sub Insert(sender As Object, e As EventArgs) Handles btnInsert.Click
+        ' -> Feature to implement <-
+        ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        ' Maintain integrity of database // Check text boxes
+        ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        If CType(sender, Button).Name.ToString = "btnInsert" Then
+        dAdapter.InsertCommand = New OleDbCommand("INSERT INTO [5M0536 Module Results] Values (@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12)", dConnect)
+        For i As Short = 0 To 11
+            dAdapter.InsertCommand.Parameters.AddWithValue(i, TextBoxes(i).Text)
+        Next
+        dAdapter.InsertCommand.ExecuteNonQuery()
 
-            ' -> Feature to implement <-
-            ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            ' Maintain integrity of database // Check text boxes
-            ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            dAdapter.InsertCommand = New OleDbCommand("INSERT INTO [5M0536 Module Results] Values (@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12)", dConnect)
-            For i As Int16 = 0 To 11
-                dAdapter.InsertCommand.Parameters.AddWithValue(i, TextBoxes(i).Text)
-            Next
-            dAdapter.InsertCommand.ExecuteNonQuery()
-        End If
+        FillGrid()
+        FillTotalsColumn()
+    End Sub
 
-        If CType(sender, Button).Name.ToString = "btnDelete" Then
+    Private Sub DeleteRecord(sender As Object, e As EventArgs) Handles btnDelete.Click
+        Dim record As String = ""
+        For i As Short = 0 To 2
+            record += myGrid.CurrentRow.Cells(i).Value & " "
+        Next
 
-            ' -> Feature to implement <-
-            ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            ' Warn user you are about to delete selected student
-            ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Try
+            Dim deletion As New DialogResult()
+            deletion = MessageBox.Show("Do you want to permanently delete the record: " & vbNewLine & record, "Delete Record",
+            MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-            dAdapter.DeleteCommand = New OleDbCommand("DELETE FROM [5M0536 Module Results] where PPSN='" & myGrid.CurrentRow.Cells(0).Value & "'", dConnect)
-            dAdapter.DeleteCommand.ExecuteNonQuery()
-        End If
+            If deletion = DialogResult.Yes Then
+                dAdapter.DeleteCommand = New OleDbCommand("DELETE FROM [5M0536 Module Results] where PPSN='" & myGrid.CurrentRow.Cells(0).Value & "'", dConnect)
+                dAdapter.DeleteCommand.ExecuteNonQuery()
+                FillGrid()
+                FillTotalsColumn()
+            Else
+                Return ' -> No action carried out!
+            End If
+        Catch ex As Exception
+            MsgBox("Could not deleted the selected record." & vbNewLine & ex.Message.ToString(), "Deletion Error", MessageBoxButtons.OKCancel)
+        End Try
+    End Sub
+    '
+    ' ->
 
+
+    Private Sub InsertLoad(sender As Object, e As EventArgs) Handles btnClear.Click
         FillGrid()
         FillTotalsColumn()
     End Sub
@@ -102,11 +124,33 @@ Public Class Main
     ' -> Load / Insert New Record
 
 
-    Private Function TextBoxes() As IEnumerable(Of TextBox)
-        Return New List(Of TextBox) From {
-                    txtPPSN, txtForename, txtSurname, txt5N2928, txt5N2929, txt5N0548,
-                    txt5N2434, txt5N2927, txt5N18396, txt5N0783, txt5N0690, txt5N1356}
-    End Function
+    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        Dim SQLQuery As String = "Select * from [5M0536 Module Results] where FirstName"
+
+        If chkPartialSearch.Checked Then
+            SQLQuery += " like '%" & txtSearchBox.Text & "%'"
+        Else
+            SQLQuery += " = '" & txtSearchBox.Text & "'"
+        End If
+        '  MessageBox.Show(SQLQuery)
+        dSet.Clear()
+        dAdapter.SelectCommand = New OleDbCommand(SQLQuery, dConnect)
+
+        dAdapter.Fill(dSet, "Results")
+        myGrid.DataSource = dSet.Tables("Results")
+
+        FillGrid()
+        FillTotalsColumn()
+
+    End Sub
+
+    Private Sub cmbProductNumbers_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProductNumbers.SelectedIndexChanged
+        dSet.Clear()
+        dAdapter.SelectCommand = New OleDbCommand("Select * from [5M0536 Module Results] where PPSN='" & cmbProductNumbers.Text & "'", dConnect)
+        dAdapter.Fill(dSet, "t Results")
+        myGrid.DataSource = dSet.Tables("t Results")
+    End Sub
+
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
 
@@ -123,6 +167,11 @@ Public Class Main
         dAdapter.UpdateCommand.ExecuteNonQuery()
     End Sub
 
+    Private Function TextBoxes() As IEnumerable(Of TextBox)
+        Return New List(Of TextBox) From {
+                    txtPPSN, txtForename, txtSurname, txt5N2928, txt5N2929, txt5N0548,
+                    txt5N2434, txt5N2927, txt5N18396, txt5N0783, txt5N0690, txt5N1356}
+    End Function
     Public Function RowCounter() As String
         Return dSet.Tables("Results").Rows.Count
     End Function
@@ -131,9 +180,6 @@ Public Class Main
     '   Temporary links commented leading to resources for code used in my assignment
     'how I can show the sum of in a datagridview column?
     'https://stackoverflow.com/questions/3779729/how-i-can-show-the-sum-of-in-a-datagridview-column
-
-    ' how to make vb.net scalable window 
-    ' https://www.techrepublic.com/article/manage-winform-controls-using-the-anchor-And-dock-properties/
 
     ' -> Returns value from NameID of the selected row
     ' -> Gets cell index
