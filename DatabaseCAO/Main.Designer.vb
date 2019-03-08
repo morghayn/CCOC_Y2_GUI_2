@@ -65,6 +65,9 @@ Partial Class Main
         Me.btnShowCourses = New System.Windows.Forms.Button()
         Me.caoGrid = New System.Windows.Forms.DataGridView()
         Me.btnBack = New System.Windows.Forms.Button()
+        Me.btnHelp = New System.Windows.Forms.Button()
+        Me.txtPoints = New System.Windows.Forms.TextBox()
+        Me.lblPoints = New System.Windows.Forms.Label()
         CType(Me.myGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.caoGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -78,6 +81,7 @@ Partial Class Main
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
         Me.myGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.myGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.myGrid.BackgroundColor = System.Drawing.SystemColors.Window
         Me.myGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical
         Me.myGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable
@@ -103,7 +107,7 @@ Partial Class Main
         Me.myGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.myGrid.EnableHeadersVisualStyles = False
         Me.myGrid.GridColor = System.Drawing.SystemColors.ActiveBorder
-        Me.myGrid.Location = New System.Drawing.Point(228, 22)
+        Me.myGrid.Location = New System.Drawing.Point(225, 22)
         Me.myGrid.Margin = New System.Windows.Forms.Padding(0)
         Me.myGrid.MultiSelect = False
         Me.myGrid.Name = "myGrid"
@@ -112,7 +116,7 @@ Partial Class Main
         Me.myGrid.RowHeadersWidth = 20
         Me.myGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.myGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.myGrid.Size = New System.Drawing.Size(718, 377)
+        Me.myGrid.Size = New System.Drawing.Size(738, 377)
         Me.myGrid.TabIndex = 0
         Me.myGrid.TabStop = False
         '
@@ -124,7 +128,7 @@ Partial Class Main
         Me.btnClear.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.btnClear.Location = New System.Drawing.Point(16, 269)
         Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(187, 24)
+        Me.btnClear.Size = New System.Drawing.Size(86, 24)
         Me.btnClear.TabIndex = 17
         Me.btnClear.Text = "Clear"
         Me.btnClear.UseVisualStyleBackColor = False
@@ -135,7 +139,7 @@ Partial Class Main
         Me.btnInsert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnInsert.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnInsert.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.btnInsert.Location = New System.Drawing.Point(115, 234)
+        Me.btnInsert.Location = New System.Drawing.Point(115, 269)
         Me.btnInsert.Name = "btnInsert"
         Me.btnInsert.Size = New System.Drawing.Size(87, 24)
         Me.btnInsert.TabIndex = 14
@@ -148,7 +152,7 @@ Partial Class Main
         Me.lblPPSN.BackColor = System.Drawing.Color.AliceBlue
         Me.lblPPSN.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblPPSN.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lblPPSN.Location = New System.Drawing.Point(27, 19)
+        Me.lblPPSN.Location = New System.Drawing.Point(60, 23)
         Me.lblPPSN.Name = "lblPPSN"
         Me.lblPPSN.Size = New System.Drawing.Size(35, 15)
         Me.lblPPSN.TabIndex = 7
@@ -160,7 +164,7 @@ Partial Class Main
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDelete.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDelete.ForeColor = System.Drawing.Color.Black
-        Me.btnDelete.Location = New System.Drawing.Point(15, 329)
+        Me.btnDelete.Location = New System.Drawing.Point(16, 329)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(87, 24)
         Me.btnDelete.TabIndex = 15
@@ -170,7 +174,7 @@ Partial Class Main
         'txtPPSN
         '
         Me.txtPPSN.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPPSN.Location = New System.Drawing.Point(111, 16)
+        Me.txtPPSN.Location = New System.Drawing.Point(118, 20)
         Me.txtPPSN.MaxLength = 8
         Me.txtPPSN.Name = "txtPPSN"
         Me.txtPPSN.Size = New System.Drawing.Size(74, 23)
@@ -183,7 +187,7 @@ Partial Class Main
         Me.lbl5N0783.BackColor = System.Drawing.Color.AliceBlue
         Me.lbl5N0783.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl5N0783.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lbl5N0783.Location = New System.Drawing.Point(17, 207)
+        Me.lbl5N0783.Location = New System.Drawing.Point(17, 203)
         Me.lbl5N0783.Name = "lbl5N0783"
         Me.lbl5N0783.Size = New System.Drawing.Size(50, 15)
         Me.lbl5N0783.TabIndex = 14
@@ -195,7 +199,7 @@ Partial Class Main
         Me.lbl5N0690.BackColor = System.Drawing.Color.AliceBlue
         Me.lbl5N0690.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl5N0690.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lbl5N0690.Location = New System.Drawing.Point(113, 207)
+        Me.lbl5N0690.Location = New System.Drawing.Point(116, 203)
         Me.lbl5N0690.Name = "lbl5N0690"
         Me.lbl5N0690.Size = New System.Drawing.Size(50, 15)
         Me.lbl5N0690.TabIndex = 15
@@ -207,7 +211,7 @@ Partial Class Main
         Me.lbl5N1356.BackColor = System.Drawing.Color.AliceBlue
         Me.lbl5N1356.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl5N1356.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lbl5N1356.Location = New System.Drawing.Point(17, 237)
+        Me.lbl5N1356.Location = New System.Drawing.Point(17, 232)
         Me.lbl5N1356.Name = "lbl5N1356"
         Me.lbl5N1356.Size = New System.Drawing.Size(50, 15)
         Me.lbl5N1356.TabIndex = 16
@@ -219,7 +223,7 @@ Partial Class Main
         Me.lbl5N2434.BackColor = System.Drawing.Color.AliceBlue
         Me.lbl5N2434.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl5N2434.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lbl5N2434.Location = New System.Drawing.Point(113, 144)
+        Me.lbl5N2434.Location = New System.Drawing.Point(116, 144)
         Me.lbl5N2434.Name = "lbl5N2434"
         Me.lbl5N2434.Size = New System.Drawing.Size(50, 15)
         Me.lbl5N2434.TabIndex = 17
@@ -231,7 +235,7 @@ Partial Class Main
         Me.lbl5N2927.BackColor = System.Drawing.Color.AliceBlue
         Me.lbl5N2927.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl5N2927.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lbl5N2927.Location = New System.Drawing.Point(17, 174)
+        Me.lbl5N2927.Location = New System.Drawing.Point(17, 172)
         Me.lbl5N2927.Name = "lbl5N2927"
         Me.lbl5N2927.Size = New System.Drawing.Size(50, 15)
         Me.lbl5N2927.TabIndex = 18
@@ -243,7 +247,7 @@ Partial Class Main
         Me.lbl5N18396.BackColor = System.Drawing.Color.AliceBlue
         Me.lbl5N18396.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl5N18396.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lbl5N18396.Location = New System.Drawing.Point(113, 174)
+        Me.lbl5N18396.Location = New System.Drawing.Point(116, 174)
         Me.lbl5N18396.Name = "lbl5N18396"
         Me.lbl5N18396.Size = New System.Drawing.Size(57, 15)
         Me.lbl5N18396.TabIndex = 19
@@ -267,7 +271,7 @@ Partial Class Main
         Me.lbl5N2929.BackColor = System.Drawing.Color.AliceBlue
         Me.lbl5N2929.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl5N2929.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lbl5N2929.Location = New System.Drawing.Point(113, 113)
+        Me.lbl5N2929.Location = New System.Drawing.Point(116, 117)
         Me.lbl5N2929.Name = "lbl5N2929"
         Me.lbl5N2929.Size = New System.Drawing.Size(50, 15)
         Me.lbl5N2929.TabIndex = 21
@@ -279,7 +283,7 @@ Partial Class Main
         Me.lbl5N2928.BackColor = System.Drawing.Color.AliceBlue
         Me.lbl5N2928.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl5N2928.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lbl5N2928.Location = New System.Drawing.Point(17, 113)
+        Me.lbl5N2928.Location = New System.Drawing.Point(17, 117)
         Me.lbl5N2928.Name = "lbl5N2928"
         Me.lbl5N2928.Size = New System.Drawing.Size(50, 15)
         Me.lbl5N2928.TabIndex = 22
@@ -291,7 +295,7 @@ Partial Class Main
         Me.lblSurname.BackColor = System.Drawing.Color.AliceBlue
         Me.lblSurname.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSurname.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lblSurname.Location = New System.Drawing.Point(27, 78)
+        Me.lblSurname.Location = New System.Drawing.Point(34, 82)
         Me.lblSurname.Name = "lblSurname"
         Me.lblSurname.Size = New System.Drawing.Size(55, 15)
         Me.lblSurname.TabIndex = 23
@@ -303,7 +307,7 @@ Partial Class Main
         Me.lblForename.BackColor = System.Drawing.Color.AliceBlue
         Me.lblForename.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblForename.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lblForename.Location = New System.Drawing.Point(27, 48)
+        Me.lblForename.Location = New System.Drawing.Point(34, 52)
         Me.lblForename.Name = "lblForename"
         Me.lblForename.Size = New System.Drawing.Size(61, 15)
         Me.lblForename.TabIndex = 24
@@ -312,7 +316,7 @@ Partial Class Main
         'txtForename
         '
         Me.txtForename.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtForename.Location = New System.Drawing.Point(111, 45)
+        Me.txtForename.Location = New System.Drawing.Point(118, 49)
         Me.txtForename.Name = "txtForename"
         Me.txtForename.Size = New System.Drawing.Size(74, 23)
         Me.txtForename.TabIndex = 2
@@ -321,7 +325,7 @@ Partial Class Main
         'txtSurname
         '
         Me.txtSurname.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSurname.Location = New System.Drawing.Point(111, 75)
+        Me.txtSurname.Location = New System.Drawing.Point(118, 79)
         Me.txtSurname.Name = "txtSurname"
         Me.txtSurname.Size = New System.Drawing.Size(74, 23)
         Me.txtSurname.TabIndex = 3
@@ -330,7 +334,7 @@ Partial Class Main
         'txt5N2928
         '
         Me.txt5N2928.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt5N2928.Location = New System.Drawing.Point(74, 110)
+        Me.txt5N2928.Location = New System.Drawing.Point(74, 113)
         Me.txt5N2928.MaxLength = 3
         Me.txt5N2928.Name = "txt5N2928"
         Me.txt5N2928.Size = New System.Drawing.Size(27, 23)
@@ -340,7 +344,7 @@ Partial Class Main
         'txt5N2929
         '
         Me.txt5N2929.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt5N2929.Location = New System.Drawing.Point(175, 113)
+        Me.txt5N2929.Location = New System.Drawing.Point(176, 114)
         Me.txt5N2929.MaxLength = 3
         Me.txt5N2929.Name = "txt5N2929"
         Me.txt5N2929.Size = New System.Drawing.Size(27, 23)
@@ -360,7 +364,7 @@ Partial Class Main
         'txt5N2434
         '
         Me.txt5N2434.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt5N2434.Location = New System.Drawing.Point(175, 144)
+        Me.txt5N2434.Location = New System.Drawing.Point(176, 142)
         Me.txt5N2434.MaxLength = 3
         Me.txt5N2434.Name = "txt5N2434"
         Me.txt5N2434.Size = New System.Drawing.Size(27, 23)
@@ -370,7 +374,7 @@ Partial Class Main
         'txt5N2927
         '
         Me.txt5N2927.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt5N2927.Location = New System.Drawing.Point(74, 171)
+        Me.txt5N2927.Location = New System.Drawing.Point(74, 170)
         Me.txt5N2927.MaxLength = 3
         Me.txt5N2927.Name = "txt5N2927"
         Me.txt5N2927.Size = New System.Drawing.Size(27, 23)
@@ -380,7 +384,7 @@ Partial Class Main
         'txt5N18396
         '
         Me.txt5N18396.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt5N18396.Location = New System.Drawing.Point(175, 174)
+        Me.txt5N18396.Location = New System.Drawing.Point(176, 171)
         Me.txt5N18396.MaxLength = 3
         Me.txt5N18396.Name = "txt5N18396"
         Me.txt5N18396.Size = New System.Drawing.Size(27, 23)
@@ -390,7 +394,7 @@ Partial Class Main
         'txt5N0783
         '
         Me.txt5N0783.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt5N0783.Location = New System.Drawing.Point(74, 203)
+        Me.txt5N0783.Location = New System.Drawing.Point(74, 199)
         Me.txt5N0783.MaxLength = 3
         Me.txt5N0783.Name = "txt5N0783"
         Me.txt5N0783.Size = New System.Drawing.Size(27, 23)
@@ -400,7 +404,7 @@ Partial Class Main
         'txt5N0690
         '
         Me.txt5N0690.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt5N0690.Location = New System.Drawing.Point(175, 207)
+        Me.txt5N0690.Location = New System.Drawing.Point(176, 200)
         Me.txt5N0690.MaxLength = 3
         Me.txt5N0690.Name = "txt5N0690"
         Me.txt5N0690.Size = New System.Drawing.Size(27, 23)
@@ -410,7 +414,7 @@ Partial Class Main
         'txt5N1356
         '
         Me.txt5N1356.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt5N1356.Location = New System.Drawing.Point(74, 235)
+        Me.txt5N1356.Location = New System.Drawing.Point(74, 229)
         Me.txt5N1356.MaxLength = 3
         Me.txt5N1356.Name = "txt5N1356"
         Me.txt5N1356.Size = New System.Drawing.Size(27, 23)
@@ -455,7 +459,7 @@ Partial Class Main
         Me.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSearch.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSearch.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.btnSearch.Location = New System.Drawing.Point(15, 358)
+        Me.btnSearch.Location = New System.Drawing.Point(16, 358)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(87, 24)
         Me.btnSearch.TabIndex = 18
@@ -464,6 +468,7 @@ Partial Class Main
         '
         'cmbPPSNList
         '
+        Me.cmbPPSNList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbPPSNList.DropDownHeight = 120
         Me.cmbPPSNList.FormattingEnabled = True
         Me.cmbPPSNList.IntegralHeight = False
@@ -494,6 +499,7 @@ Partial Class Main
         DataGridViewCellStyle4.BackColor = System.Drawing.Color.Gainsboro
         DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
         Me.caoGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        Me.caoGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.caoGrid.BackgroundColor = System.Drawing.SystemColors.Window
         Me.caoGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical
         Me.caoGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable
@@ -519,7 +525,7 @@ Partial Class Main
         Me.caoGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.caoGrid.EnableHeadersVisualStyles = False
         Me.caoGrid.GridColor = System.Drawing.SystemColors.ActiveBorder
-        Me.caoGrid.Location = New System.Drawing.Point(228, 22)
+        Me.caoGrid.Location = New System.Drawing.Point(225, 22)
         Me.caoGrid.Margin = New System.Windows.Forms.Padding(0)
         Me.caoGrid.MultiSelect = False
         Me.caoGrid.Name = "caoGrid"
@@ -531,6 +537,7 @@ Partial Class Main
         Me.caoGrid.Size = New System.Drawing.Size(489, 377)
         Me.caoGrid.TabIndex = 32
         Me.caoGrid.TabStop = False
+        Me.caoGrid.Visible = False
         '
         'btnBack
         '
@@ -544,6 +551,44 @@ Partial Class Main
         Me.btnBack.TabIndex = 33
         Me.btnBack.Text = "Back"
         Me.btnBack.UseVisualStyleBackColor = False
+        Me.btnBack.Visible = False
+        '
+        'btnHelp
+        '
+        Me.btnHelp.BackColor = System.Drawing.Color.Red
+        Me.btnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnHelp.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnHelp.ForeColor = System.Drawing.SystemColors.Control
+        Me.btnHelp.Location = New System.Drawing.Point(16, 14)
+        Me.btnHelp.Name = "btnHelp"
+        Me.btnHelp.Size = New System.Drawing.Size(29, 29)
+        Me.btnHelp.TabIndex = 34
+        Me.btnHelp.Text = "?"
+        Me.btnHelp.UseVisualStyleBackColor = False
+        '
+        'txtPoints
+        '
+        Me.txtPoints.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPoints.Location = New System.Drawing.Point(159, 229)
+        Me.txtPoints.MaxLength = 3
+        Me.txtPoints.Name = "txtPoints"
+        Me.txtPoints.ReadOnly = True
+        Me.txtPoints.Size = New System.Drawing.Size(44, 23)
+        Me.txtPoints.TabIndex = 35
+        Me.txtPoints.TabStop = False
+        Me.txtPoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblPoints
+        '
+        Me.lblPoints.AutoSize = True
+        Me.lblPoints.BackColor = System.Drawing.Color.AliceBlue
+        Me.lblPoints.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPoints.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.lblPoints.Location = New System.Drawing.Point(115, 233)
+        Me.lblPoints.Name = "lblPoints"
+        Me.lblPoints.Size = New System.Drawing.Size(42, 15)
+        Me.lblPoints.TabIndex = 36
+        Me.lblPoints.Text = "Points"
         '
         'Main
         '
@@ -551,7 +596,10 @@ Partial Class Main
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(964, 423)
+        Me.ClientSize = New System.Drawing.Size(980, 423)
+        Me.Controls.Add(Me.txtPoints)
+        Me.Controls.Add(Me.lblPoints)
+        Me.Controls.Add(Me.btnHelp)
         Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.caoGrid)
         Me.Controls.Add(Me.btnShowCourses)
@@ -638,4 +686,7 @@ Partial Class Main
     Friend WithEvents btnShowCourses As Button
     Friend WithEvents caoGrid As DataGridView
     Friend WithEvents btnBack As Button
+    Friend WithEvents btnHelp As Button
+    Friend WithEvents txtPoints As TextBox
+    Friend WithEvents lblPoints As Label
 End Class
