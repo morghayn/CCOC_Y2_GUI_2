@@ -317,6 +317,7 @@ Partial Class Main
         '
         Me.txtForename.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtForename.Location = New System.Drawing.Point(118, 49)
+        Me.txtForename.MaxLength = 30
         Me.txtForename.Name = "txtForename"
         Me.txtForename.Size = New System.Drawing.Size(74, 23)
         Me.txtForename.TabIndex = 2
@@ -326,6 +327,7 @@ Partial Class Main
         '
         Me.txtSurname.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSurname.Location = New System.Drawing.Point(118, 79)
+        Me.txtSurname.MaxLength = 30
         Me.txtSurname.Name = "txtSurname"
         Me.txtSurname.Size = New System.Drawing.Size(74, 23)
         Me.txtSurname.TabIndex = 3
