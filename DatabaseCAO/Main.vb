@@ -15,9 +15,9 @@ Public Class Main
         Catch ex As Exception
             MsgBox("Error. Couldn't connect to Access database.")
         End Try
-        ImportStudentData()
         AddValidationHandlers()
         PPSNCombo()
+        btnClear.PerformClick()
     End Sub
     '
     ' -> Opening my database connection, filling text boxes with the first record, adding data validation to grade boxes and filling the ppsn combo-box
@@ -51,12 +51,32 @@ Public Class Main
         Next
     End Sub
     Private Sub RefreshGrid(x As Short)
-        If x = 0 Then FillGrid()
-        If x = 1 Then
+        If x = 0 Then ' Used by Clear, Delete, Reset, Modify, ToggleGrid
+            FillGrid()
+            PPSNCombo()
+            FillTotalsColumn()
+            ImportStudentData()
+            myGrid.Rows(rowSelected).Selected = True
+            myGrid.CurrentCell = myGrid.Item(1, rowSelected)
+        End If
+
+        If x = 1 Or x = 2 Then ' Used by PPSN Search (as 1) and Used by Search (as 2)
             dAdapter.Fill(dSet, "Results")
             myGrid.DataSource = dSet.Tables("Results")
+            If x = 2 And Not myGrid.RowCount > 0 Then
+                MessageBox.Show("No records available.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                FillGrid()
+                btnClear.PerformClick()
+            End If
+            FillTotalsColumn()
+            If x = 1 Then ImportStudentData()
         End If
-        FillTotalsColumn()
+    End Sub
+    Private Sub GridModified(sender As Object, e As EventArgs) Handles myGrid.Click, myGrid.KeyUp, myGrid.KeyDown
+        If myGrid.RowCount > 0 Then
+            rowSelected = myGrid.CurrentRow.Index
+            ImportStudentData()
+        End If
     End Sub
     '
     ' -> FillGrid() == Fills my grid by selecting the entire [5M0536 Module Results] table from the Access database
@@ -64,21 +84,34 @@ Public Class Main
     ' -> RefreshGrid() == Refreshes the datagrid
 
 
+    Private Sub ImportStudentData()
+        For i As Short = 0 To 11
+            TextBoxList(i).Text = myGrid.Rows(rowSelected).Cells(i).Value
+        Next
+        txtPoints.Text = myGrid.Rows(rowSelected).Cells(12).Value
+        For i As Short = 0 To 2
+            ButtonList(i).Enabled = True
+        Next
+    End Sub
+    '
+    ' -> Fills PPSN, Forename, Surname, Grades and Total Points box with student data when a selection is made on the DataGrid.
+
+
     Private Sub Insert(sender As Object, e As EventArgs) Handles btnInsert.Click
+        If Not txtPPSN.TextLength = 8 Then
+            MessageBox.Show("PPSN must be 7 numbers followed by a letter.", "PPSN Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
         Try
-            Dim deletion As New DialogResult()
-            deletion = MessageBox.Show("Do you want to insert the record?", "Insert Record",
-            MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-            If deletion = DialogResult.Yes Then
-                dAdapter.InsertCommand = New OleDbCommand("INSERT INTO [5M0536 Module Results] Values (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11)", dConnect)
-                For i As Short = 0 To 11
-                    dAdapter.InsertCommand.Parameters.AddWithValue(i, TextBoxList(i).Text)
-                Next
-                dAdapter.InsertCommand.ExecuteNonQuery()
-                RefreshGrid(0)
-            End If
+            dAdapter.InsertCommand = New OleDbCommand("INSERT INTO [5M0536 Module Results] Values (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11)", dConnect)
+            For i As Short = 0 To 11
+                dAdapter.InsertCommand.Parameters.AddWithValue(i, TextBoxList(i).Text)
+            Next
+            dAdapter.InsertCommand.ExecuteNonQuery()
+            RefreshGrid(0)
         Catch ex As Exception
-            MsgBox(ex.Message.ToString(), MessageBoxButtons.OKCancel)
+            MessageBox.Show("Either the PPSN, Forename or Surname is invalid.", "Insert Error.",
+            MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
     '
@@ -86,67 +119,49 @@ Public Class Main
 
 
     Private Sub ModifyGrades(sender As Object, e As EventArgs) Handles btnModify.Click
-        Try
-            rowSelected = myGrid.CurrentRow.Index
-            Dim tempSQL As String = ""
-            For i As Short = 0 To 8
-                If i < 8 Then
-                    tempSQL += ModuleList(i) & "='" & TextBoxList(i + 3).Text & "', "
-                Else
-                    tempSQL += ModuleList(i) & "='" & TextBoxList(i + 3).Text
-                End If
-            Next
-            Dim SQLQuery As String = "UPDATE [5M0536 Module Results] set " & tempSQL & "' where PPSN='" & myGrid.CurrentRow.Cells(0).Value & "'"
-            dAdapter.UpdateCommand = New OleDbCommand(SQLQuery, dConnect)
-            dAdapter.UpdateCommand.ExecuteNonQuery()
-            RefreshGrid(0)
-            myGrid.Rows(rowSelected).Selected = True
-            myGrid.CurrentCell = myGrid.Item(1, rowSelected)
-        Catch ex As Exception
-            MsgBox(ex.Message.ToString(), MessageBoxButtons.OKCancel)
-        End Try
+        Dim tempSQL As String = ""
+        For i As Short = 0 To 8
+            tempSQL += If(i < 8, ModuleList(i) & "='" & TextBoxList(i + 3).Text & "', ", ModuleList(i) & "='" & TextBoxList(i + 3).Text)
+        Next
+        dAdapter.UpdateCommand = New OleDbCommand("UPDATE [5M0536 Module Results] set " & tempSQL & "' where PPSN='" & myGrid.CurrentRow.Cells(0).Value & "'", dConnect)
+        dAdapter.UpdateCommand.ExecuteNonQuery()
+        RefreshGrid(0)
     End Sub
     '
     ' -> Algorithm for modifying grades
 
 
     Private Sub DeleteRecord(sender As Object, e As EventArgs) Handles btnDelete.Click
-        Try
-            Dim deletion As New DialogResult(), record As String = txtPPSN.Text & " " & txtForename.Text & " " & txtSurname.Text
-            deletion = MessageBox.Show("Do you want to permanently delete the record: " & vbNewLine & record, "Delete Record",
-            MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-            If deletion = DialogResult.Yes Then
-                dAdapter.DeleteCommand = New OleDbCommand("DELETE FROM [5M0536 Module Results] where PPSN='" & myGrid.CurrentRow.Cells(0).Value & "'", dConnect)
-                dAdapter.DeleteCommand.ExecuteNonQuery()
-                RefreshGrid(0)
+        Dim deleteYesNo As New DialogResult(), record As String = txtPPSN.Text & " " & txtForename.Text & " " & txtSurname.Text
+        deleteYesNo = MessageBox.Show("Do you want to permanently delete the record: " & vbNewLine & record, "Delete Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If deleteYesNo = DialogResult.Yes Then
+            dAdapter.DeleteCommand = New OleDbCommand("DELETE FROM [5M0536 Module Results] where PPSN='" & myGrid.CurrentRow.Cells(0).Value & "'", dConnect)
+            dAdapter.DeleteCommand.ExecuteNonQuery()
+            If myGrid.CurrentRow.Index = myGrid.RowCount - 1 Then rowSelected -= 1
+            If myGrid.RowCount = 1 Then
+                FillGrid()
+                btnClear.PerformClick()
+                Exit Sub
             End If
-        Catch ex As Exception
-            MsgBox(ex.Message.ToString(), MessageBoxButtons.OKCancel)
-        End Try
+            RefreshGrid(0)
+        End If
     End Sub
     '
     ' -> Algorithm for deleting records
 
 
     Private Sub Search(sender As Object, e As EventArgs) Handles btnSearch.Click
-        Dim SQLQuery As String = "Select * from [5M0536 Module Results] where "
-        Dim isLike As String = " like '%" & txtSearchBox.Text & "%'", isEquals As String = " = '" & txtSearchBox.Text & "'"
-        Dim first As String = "PPSN", second As String = "FirstName", third As String = "Surname"
-        If chkPartialSearch.Checked Then
-            SQLQuery += first & isLike & " OR " & second & isLike & " OR " & third & isLike
-        Else
-            SQLQuery += first & isEquals & " OR " & second & isEquals & " OR " & third & isEquals
-        End If
+        Dim myQuery = If(chkPartialSearch.Checked, " like '%" & txtSearchBox.Text & "%'", " = '" & txtSearchBox.Text & "'")
+        Dim mySearch = ("Select * from [5M0536 Module Results] where " + "PPSN") & myQuery & " OR " & "FirstName" & myQuery & " OR " & "Surname" & myQuery
+        dAdapter.SelectCommand = New OleDbCommand(mySearch, dConnect)
         dSet.Clear()
-        dAdapter.SelectCommand = New OleDbCommand(SQLQuery, dConnect)
-        RefreshGrid(1)
+        RefreshGrid(2)
     End Sub
     '
     ' -> Searches (full or partial) for records via a SQL 'like' or 'equal' query for the ppsn, forename or surname columns
 
 
     Private Sub ClearReset(sender As Object, e As EventArgs) Handles btnClear.Click
-        RefreshGrid(0)
         myGrid.ClearSelection()
         For i As Short = 0 To 12
             TextBoxList(i).Text = ""
@@ -159,61 +174,36 @@ Public Class Main
     ' -> Clears / Resets all selections and text boxes in the program
 
 
-    Private Sub GridModified(sender As Object, e As EventArgs) Handles myGrid.Click, myGrid.KeyUp, myGrid.KeyDown
-        ImportStudentData()
-    End Sub
-    Private Sub ImportStudentData()
-        Try
-            Dim selectedRow As Integer = myGrid.CurrentRow.Index
-            For i As Short = 0 To 11
-                TextBoxList(i).Text = myGrid.Rows(selectedRow).Cells(i).Value
-            Next
-            txtPoints.Text = myGrid.Rows(selectedRow).Cells(12).Value
-            For i As Short = 0 To 2
-                ButtonList(i).Enabled = True
-            Next
-            PPSNCombo()
-        Catch ex As Exception
-            MsgBox(ex.Message.ToString(), MessageBoxButtons.OKCancel)
-        End Try
-    End Sub
-    '
-    ' -> Fills PPSN, Forename, Surname, Grades and Total Points box with student data when a selection is made on the DataGrid.
-
-
-    Private Sub ShowHideGridCAO(sender As Object, e As EventArgs) Handles btnShowCourses.Click, btnBack.Click
+    Private Sub ToggleGrid(sender As Object, e As EventArgs) Handles btnShowCourses.Click, btnBack.Click
         Dim Button As String = CType(sender, Button).Name.ToString, points As Double
+
+        Dim y As Boolean = If(Button = "btnShowCourses", 1, 0)
+        caoGrid.Visible = y
+        btnBack.Visible = y
+        For Each box In TextBoxList()
+            box.ReadOnly = y
+        Next
+
         Dim x As Boolean = If(Button = "btnShowCourses", 0, 1)
-        Try
-            If x = 0 Then points = myGrid.CurrentRow.Cells(12).Value
-            If x = 0 Then rowSelected = myGrid.CurrentRow.Index
-            Width = If(x = 0, 750, 1000)
-            If x = 0 Then caoGrid.Show() Else caoGrid.Hide()
-            If x = 0 Then btnBack.Show() Else btnBack.Hide()
-            For Each buttons In ButtonList()
-                If x = 0 Then buttons.Hide() Else buttons.Show()
-            Next
-            For Each box In TextBoxList()
-                If x = 0 Then box.ReadOnly = True Else box.ReadOnly = False
-            Next
-            If x = 0 Then myGrid.Hide() Else myGrid.Show()
-            If x = 0 Then txtSearchBox.Hide() Else txtSearchBox.Show()
-            If x = 0 Then chkPartialSearch.Hide() Else chkPartialSearch.Show()
-            If x = 0 Then cmbPPSNList.Hide() Else cmbPPSNList.Show()
-            If x = 0 Then
-                dSet.Clear()
-                dAdapter.SelectCommand = New OleDbCommand("Select * FROM [CAO Points 2018] WHERE [Points] < " & points & "", dConnect)
-                dAdapter.Fill(dSet, "CAO")
-                caoGrid.DataSource = dSet.Tables("CAO")
-                caoGrid.AutoResizeColumns()
-            Else
-                RefreshGrid(0)
-                myGrid.Rows(rowSelected).Selected = True
-                myGrid.CurrentCell = myGrid.Item(1, rowSelected)
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message.ToString(), MessageBoxButtons.OKCancel)
-        End Try
+        If x = 0 Then points = myGrid.CurrentRow.Cells(12).Value
+        If x = 0 Then rowSelected = myGrid.CurrentRow.Index
+        Width = If(x = 0, 750, 1000)
+        For Each buttons In ButtonList()
+            buttons.Visible = x
+        Next
+        myGrid.Visible = x
+        txtSearchBox.Visible = x
+        chkPartialSearch.Visible = x
+        cmbPPSNList.Visible = x
+
+        If x = 0 Then
+            dAdapter.SelectCommand = New OleDbCommand("Select * FROM [CAO Points 2018] WHERE [Points] < " & points & "", dConnect)
+            dAdapter.Fill(dSet, "CAO")
+            caoGrid.DataSource = dSet.Tables("CAO")
+            caoGrid.AutoResizeColumns()
+        Else
+            RefreshGrid(0)
+        End If
     End Sub
     '
     ' -> Shows or hides the CAO table, along with buttons that are unneeded - this sub is dependent on whoever the Button sender is.
@@ -228,9 +218,8 @@ Public Class Main
     Private Sub PPSNList(sender As Object, e As EventArgs) Handles cmbPPSNList.SelectedIndexChanged
         dSet.Clear()
         dAdapter.SelectCommand = New OleDbCommand("Select * from [5M0536 Module Results] where PPSN='" & cmbPPSNList.Text & "'", dConnect)
-        dAdapter.Fill(dSet, "Results")
-        myGrid.DataSource = dSet.Tables("Results")
-        FillTotalsColumn()
+        rowSelected = 0
+        RefreshGrid(1)
     End Sub
     '
     ' -> Fills my combo-box with all PPSN numbers on the grid. The end-user can use this combo-box to search for a user entry.
